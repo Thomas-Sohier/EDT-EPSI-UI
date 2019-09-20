@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, from } from 'rxjs';
+import { API_URL } from '@environment';
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -13,16 +14,14 @@ const httpOptions = {
   providedIn: 'root'
 })
 export class CoursService {
-  private readonly baseUrl: string = 'http://localhost:8080';
-
   constructor(private readonly http: HttpClient) {}
 
   getAllWeek(): Observable<any> {
-    return this.http.get(`${this.baseUrl}/cour`);
+    return this.http.get(`${API_URL}/cour`);
   }
 
   getWeekByDate(date: string): Observable<any> {
-    const urlApi = `${this.baseUrl}/cour/${date}`;
+    const urlApi = `${API_URL}/cour/${date}`;
     return this.http.get(`${urlApi}`);
   }
 }
