@@ -6,7 +6,8 @@ import { API_URL } from '@environment';
 const httpOptions = {
   headers: new HttpHeaders({
     'content-type': 'application/json',
-    accept: 'application/json'
+    accept: 'application/json',
+    rejectUnauthorized: 'false'
   })
 };
 
@@ -17,11 +18,11 @@ export class CoursService {
   constructor(private readonly http: HttpClient) {}
 
   getAllWeek(): Observable<any> {
-    return this.http.get(`${API_URL}/cour`);
+    return this.http.get(`${API_URL}/cour`, httpOptions);
   }
 
   getWeekByDate(date: string): Observable<any> {
     const urlApi = `${API_URL}/cour/${date}`;
-    return this.http.get(`${urlApi}`);
+    return this.http.get(`${urlApi}`, httpOptions);
   }
 }
