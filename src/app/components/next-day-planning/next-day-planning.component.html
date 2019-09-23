@@ -1,4 +1,4 @@
-<div *ngIf="mobile === false">
+<div *ngIf="mobile === false" style="margin: 30px">
   <mat-card class="flex center">
     <mat-list *ngFor="let jour of semaine" class="list">
       <h2 class="dayTitle">{{jour.jours}}</h2>
@@ -22,7 +22,7 @@
   </mat-card>
 </div>
 
-<div *ngIf="mobile === true">
+<div *ngIf="mobile === true" style="margin: 30px 0px 30px 0px">
   <mat-card class="flex center mobileCard">
     <mat-list class="list">
       <h2 class="dayTitle">Aujourd'hui</h2>
