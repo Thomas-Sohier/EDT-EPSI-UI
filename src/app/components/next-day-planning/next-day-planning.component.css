@@ -6,6 +6,11 @@
   padding: 5px;
 }
 
+.center {
+  margin-right: auto;
+  margin-left: auto;
+}
+
 .list {
   height: auto;
   width: 300px;
