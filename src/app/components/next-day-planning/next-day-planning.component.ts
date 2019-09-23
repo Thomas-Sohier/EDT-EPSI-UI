@@ -8,28 +8,51 @@ import { Semaine, Cour } from 'src/app/cours';
   styleUrls: ['./next-day-planning.component.css']
 })
 export class NextDayPlanningComponent implements OnInit {
+  re = /\//gi;
+  mobile = false;
   todayDate = new Date();
   semaine: Array<Semaine> = [];
   cours = new Map<string, Semaine>();
+  currentJour: Array<Cour>;
+  weekday = new Array(7);
+
   constructor(private coursService: CoursService) {}
 
   ngOnInit() {
-    console.log(this.getMonday(this.todayDate));
+    if (window.screen.width <= 960) {
+      // 768px portrait
+      this.mobile = true;
+    }
+    this.setWeekDay();
     this.loadData();
   }
 
+  setWeekDay() {
+    this.weekday[0] = 'Lundi';
+    this.weekday[1] = 'Mardi';
+    this.weekday[2] = 'Mercredi';
+    this.weekday[3] = 'Jeudi';
+    this.weekday[4] = 'Vendredi';
+    this.weekday[5] = 'Samedi';
+    this.weekday[6] = 'Dimanche';
+  }
+
   getMonday(d) {
-    const re = /\//gi;
     d = new Date(d);
     const day = d.getDay();
     const diff = d.getDate() - day + (day === 0 ? -6 : 1); // adjust when day is sunday
-    return new Date(d.setDate(diff)).toLocaleDateString().replace(re, '-');
+    return new Date(d.setDate(diff)).toLocaleDateString().replace(this.re, '-');
   }
 
   loadData() {
     this.coursService.getWeekByDate(this.getMonday(this.todayDate)).subscribe(cours => {
       Object.keys(cours).forEach(key => {
         this.cours.set(key.toString(), cours[key]);
+
+        if (this.weekday[this.todayDate.getDay()] === key) {
+          this.currentJour = cours[key];
+          console.log(this.currentJour[0].groupe);
+        }
       });
       this.cours.forEach((v, k) => {
         v.jours = k;

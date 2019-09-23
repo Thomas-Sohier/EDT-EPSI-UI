@@ -11,6 +11,10 @@
   width: 300px;
 }
 
+.mobileCard {
+  width: fit-content;
+}
+
 .dayTitle {
   text-align: center;
 }

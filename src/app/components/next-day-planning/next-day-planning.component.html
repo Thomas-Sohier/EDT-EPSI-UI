@@ -1,21 +1,47 @@
-<mat-card class="flex">
-  <mat-list *ngFor="let jour of semaine" class="list">
-    <h2 class="dayTitle">{{jour.jours}}</h2>
-    <div class="flexColumn">
-      <div *ngFor="let cour of jour" class="listElement">
-        <mat-list-item class="listTitle">
-          <h3>{{cour.nom}}</h3>
-        </mat-list-item>
-        <div>
-          <mat-list-item class="primaryText">
-            <h4>{{cour.prof}}</h4>
+<div *ngIf="mobile === false">
+  <mat-card class="flex">
+    <mat-list *ngFor="let jour of semaine" class="list">
+      <h2 class="dayTitle">{{jour.jours}}</h2>
+      <div class="flexColumn">
+        <div *ngFor="let cour of jour" class="listElement">
+          <mat-list-item class="listTitle">
+            <h3>{{cour.nom}}</h3>
           </mat-list-item>
-          <div class="flex">
-            <mat-list-item class="primaryText"> {{cour.salle}} </mat-list-item>
-            <mat-list-item class="primaryText"> {{cour.horaires}} </mat-list-item>
+          <div>
+            <mat-list-item class="primaryText">
+              <h4>{{cour.prof}}</h4>
+            </mat-list-item>
+            <div class="flex">
+              <mat-list-item class="primaryText"> {{cour.salle}} </mat-list-item>
+              <mat-list-item class="primaryText"> {{cour.horaires}} </mat-list-item>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-  </mat-list>
-</mat-card>
+    </mat-list>
+  </mat-card>
+</div>
+
+<div *ngIf="mobile === true">
+  <mat-card class="flex mobileCard">
+    <mat-list class="list">
+      <h2 class="dayTitle">Aujourd'hui</h2>
+      <div class="flexColumn">
+        <div *ngFor="let cour of currentJour" class="listElement">
+          <mat-list-item class="listTitle">
+            <h3>{{cour.nom}}</h3>
+          </mat-list-item>
+          <div>
+            <mat-list-item class="primaryText">
+              <h4>{{cour.prof}}</h4>
+            </mat-list-item>
+            <div class="flex">
+              <mat-list-item class="primaryText"> {{cour.salle}} </mat-list-item>
+              <mat-list-item class="primaryText"> {{cour.horaires}} </mat-list-item>
+            </div>
+          </div>
+        </div>
+      </div>
+    </mat-list>
+  </mat-card>
+</div>
