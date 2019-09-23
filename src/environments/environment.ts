@@ -6,7 +6,7 @@ export const environment = {
   production: false
 };
 
-export const API_URL = 'https://localhost:8443';
+export const API_URL = 'https://api.thomas-sohier.fr:8443/cour';
 
 /*
  * For easier debugging in development mode, you can import the following file
