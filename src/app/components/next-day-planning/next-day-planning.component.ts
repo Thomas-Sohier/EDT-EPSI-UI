@@ -62,8 +62,8 @@ export class NextDayPlanningComponent implements OnInit {
   }
 
   getNextDay() {
-    this.currentJour = this.semaine.jours[this.todayDate.getDay() + this.incrementDay];
-    console.log(this.currentJour);
+    this.incrementDay++;
+    this.currentJour = this.semaine.jours[this.todayDate.getDay() - 1 + this.incrementDay];
 
     if (this.todayDate.getDay() + this.incrementDay === 7) {
       this.date.setDate(this.date.getDate() + 7);
@@ -80,7 +80,6 @@ export class NextDayPlanningComponent implements OnInit {
       });
       this.incrementDay = 0;
     }
-    this.incrementDay++;
   }
 
   getPrevWeek() {
@@ -99,8 +98,8 @@ export class NextDayPlanningComponent implements OnInit {
   }
 
   getPrevDay() {
-    this.currentJour = this.semaine.jours[this.todayDate.getDay() + this.incrementDay];
     this.incrementDay--;
+    this.currentJour = this.semaine.jours[this.todayDate.getDay() - 1 + this.incrementDay];
   }
 
   loadData() {
