@@ -1,53 +1,78 @@
 <div *ngIf="mobile === false" style="margin: 30px">
-  <mat-card class="flex center">
-    <button mat-button (click)="getPrevWeek()">Prev</button>
-    <mat-list *ngFor="let jour of semaine.jours" class="list">
-      <h2 class="dayTitle">{{jour.jour}}</h2>
-      <div class="flexColumn">
-        <div class="listElement" *ngFor="let cour of jour">
-          <mat-list-item class="listTitle">
-            <h3>{{cour.nom}}</h3>
-          </mat-list-item>
-          <div>
-            <mat-list-item class="primaryText">
-              <h4>{{cour.prof}}</h4>
-            </mat-list-item>
-            <div class="flex">
-              <mat-list-item class="primaryText"> {{cour.salle}} </mat-list-item>
-              <mat-list-item class="primaryText"> {{cour.horaires}} </mat-list-item>
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>{{date.toLocaleDateString()}}</mat-card-title>
+    </mat-card-header>
+    <mat-card-content class="flex center">
+      <button mat-button (click)="getPrevWeek()">Prev</button>
+      <mat-list *ngFor="let jour of semaine.jours" class="list">
+        <h2 class="dayTitle">{{jour.jour}}</h2>
+        <div class="flexColumn">
+          <div *ngIf="jour.length !== 0; else elseBlock">
+            <div class="listElement" *ngFor="let cour of jour">
+              <mat-list-item class="listTitle">
+                <h3>{{cour.nom}}</h3>
+              </mat-list-item>
+              <div>
+                <mat-list-item class="primaryText">
+                  <h4>{{cour.prof}}</h4>
+                </mat-list-item>
+                <div class="flex">
+                  <mat-list-item class="primaryText"> {{cour.salle}} </mat-list-item>
+                  <mat-list-item class="primaryText"> {{cour.horaires}} </mat-list-item>
+                </div>
+              </div>
             </div>
           </div>
+          <ng-template #elseBlock>
+            <p class="empty">
+              VIDE
+            </p>
+          </ng-template>
         </div>
-      </div>
-    </mat-list>
-    <button mat-button (click)="getNextWeek()">Next</button>
+      </mat-list>
+      <button mat-button (click)="getNextWeek()">Next</button>
+    </mat-card-content>
   </mat-card>
 </div>
 
-<div *ngIf="mobile === true" style="margin: 30px 0px 30px 0px">
-  <mat-card class="flex center mobileCard">
-    <mat-list class="list">
-      <div class="flex">
-        <button mat-button (click)="getPrevDay()" style="margin-right: auto">Prev</button>
-        <h2 class="dayTitle">{{currentJour.jour}}</h2>
-        <button mat-button (click)="getNextDay()" style="margin-left: auto">Next</button>
-      </div>
-      <div class="flexColumn">
-        <div *ngFor="let cour of currentJour" class="listElement">
-          <mat-list-item class="listTitle">
-            <h3>{{cour.nom}}</h3>
-          </mat-list-item>
-          <div>
-            <mat-list-item class="primaryText">
-              <h4>{{cour.prof}}</h4>
-            </mat-list-item>
-            <div class="flex">
-              <mat-list-item class="primaryText"> {{cour.salle}} </mat-list-item>
-              <mat-list-item class="primaryText"> {{cour.horaires}} </mat-list-item>
+<div *ngIf="mobile === true" style="margin: 30px 10px 30px 10px">
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>{{date.toLocaleDateString()}}</mat-card-title>
+      <!-- <mat-card-subtitle>{{currentJour.jour}}</mat-card-subtitle> -->
+    </mat-card-header>
+    <mat-card-content class="flex center mobileCard">
+      <mat-list class="list">
+        <div class="flex">
+          <button mat-button (click)="getPrevDay()" style="margin-right: auto">Prev</button>
+          <h3>{{weekday[incrementDay]}}</h3>
+          <button mat-button (click)="getNextDay()" style="margin-left: auto">Next</button>
+        </div>
+        <div *ngIf="currentJour.length !== 0; else elseBlock">
+          <div class="flexColumn">
+            <div *ngFor="let cour of currentJour" class="listElement">
+              <mat-list-item class="listTitle">
+                <h3>{{cour.nom}}</h3>
+              </mat-list-item>
+              <div>
+                <mat-list-item class="primaryText">
+                  <h4>{{cour.prof}}</h4>
+                </mat-list-item>
+                <div class="flex">
+                  <mat-list-item class="primaryText"> {{cour.salle}} </mat-list-item>
+                  <mat-list-item class="primaryText"> {{cour.horaires}} </mat-list-item>
+                </div>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-    </mat-list>
+        <ng-template #elseBlock>
+          <p class="empty">
+            VIDE
+          </p>
+        </ng-template>
+      </mat-list>
+    </mat-card-content>
   </mat-card>
 </div>

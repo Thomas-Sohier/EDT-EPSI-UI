@@ -18,14 +18,19 @@ export class SelectModeComponent implements OnInit {
   constructor(private router: Router) {
     this.navLinks = [
       {
-        label: 'Tranches horaires',
-        link: './globalStat',
+        label: 'Planning',
+        link: './nextDayPlanning',
         index: 0
       },
       {
-        label: 'Planning de demain',
-        link: './nextDayPlanning',
+        label: 'Tranches horaires',
+        link: './globalStat',
         index: 1
+      },
+      {
+        label: 'Répartition prof',
+        link: './timeProfGraph',
+        index: 2
       }
     ];
   }

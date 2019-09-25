@@ -27,6 +27,7 @@ export class NextDayPlanningComponent implements OnInit {
     }
     this.setWeekDay();
     this.loadData();
+    this.incrementDay = this.todayDate.getDay();
   }
 
   setWeekDay() {
@@ -62,10 +63,7 @@ export class NextDayPlanningComponent implements OnInit {
   }
 
   getNextDay() {
-    this.incrementDay++;
-    this.currentJour = this.semaine.jours[this.todayDate.getDay() - 1 + this.incrementDay];
-
-    if (this.todayDate.getDay() + this.incrementDay === 7) {
+    if (this.semaine.jours.length <= this.incrementDay + 1) {
       this.date.setDate(this.date.getDate() + 7);
       this.jours.clear();
       this.semaine.jours = [];
@@ -78,8 +76,11 @@ export class NextDayPlanningComponent implements OnInit {
           this.semaine.jours.push(v);
         });
       });
-      this.incrementDay = 0;
+      this.incrementDay = -1;
     }
+
+    this.incrementDay++;
+    this.currentJour = this.semaine.jours[this.incrementDay - 1];
   }
 
   getPrevWeek() {
@@ -98,8 +99,24 @@ export class NextDayPlanningComponent implements OnInit {
   }
 
   getPrevDay() {
+    if (1 > this.incrementDay - 1) {
+      this.date.setDate(this.date.getDate() - 7);
+      this.jours.clear();
+      this.semaine.jours = [];
+      this.coursService.getWeekByDate(this.getMonday(this.date)).subscribe(cours => {
+        Object.keys(cours).forEach(key => {
+          this.jours.set(key.toString(), cours[key]);
+        });
+        this.jours.forEach((v, k) => {
+          v.jour = k;
+          this.semaine.jours.push(v);
+        });
+      });
+      this.incrementDay = 7;
+    }
+
     this.incrementDay--;
-    this.currentJour = this.semaine.jours[this.todayDate.getDay() - 1 + this.incrementDay];
+    this.currentJour = this.semaine.jours[this.incrementDay - 1];
   }
 
   loadData() {
@@ -115,6 +132,7 @@ export class NextDayPlanningComponent implements OnInit {
         v.jour = k;
         this.semaine.jours.push(v);
       });
+      console.log(this.semaine.jours[4].cours);
     });
   }
 }
