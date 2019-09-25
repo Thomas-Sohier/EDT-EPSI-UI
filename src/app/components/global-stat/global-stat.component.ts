@@ -55,10 +55,6 @@ export class GlobalStatComponent implements OnInit {
 
   async ngOnInit() {
     this.loadData();
-    this.showList();
-    setTimeout(() => {
-      this.showList();
-    }, 500);
   }
 
   loadData() {
@@ -66,6 +62,7 @@ export class GlobalStatComponent implements OnInit {
       Object.keys(cours).forEach(key => {
         this.cours.set(key.toString(), JSON.parse(cours[key]));
       });
+      this.showList();
     });
   }
 
