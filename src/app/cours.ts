@@ -14,35 +14,27 @@ export class Cours {
 }
 
 export interface Semaine {
-  Lundi: Array<Cour>;
-  Mardi: Array<Cour>;
-  Mercredi: Array<Cour>;
-  Jeudi: Array<Cour>;
-  Vendredi: Array<Cour>;
-  jours?: string;
+  jours: Array<Journee>;
 }
 
 export class Semaine {
-  public jours?: string;
-  public Lundi: Array<Cour>;
-  public Mardi: Array<Cour>;
-  public Mercredi: Array<Cour>;
-  public Jeudi: Array<Cour>;
-  public Vendredi: Array<Cour>;
+  public jours: Array<Journee>;
 
-  constructor(
-    lundi: Array<Cour>,
-    mardi: Array<Cour>,
-    mercredi: Array<Cour>,
-    jeudi: Array<Cour>,
-    vendredi: Array<Cour>,
-    jours?: string
-  ) {
-    this.Lundi = lundi;
-    this.Mardi = mardi;
-    this.Mercredi = mercredi;
-    this.Jeudi = jeudi;
-    this.Vendredi = vendredi;
+  constructor(jours: Array<Journee>) {
+    this.jours = jours;
+  }
+}
+
+export interface Journee {
+  cours: Array<Cour>;
+}
+
+export class Journee {
+  public cours: Array<Cour>;
+  public jour: string;
+
+  constructor(cours: Array<Cour>, jour: string) {
+    this.cours = cours;
   }
 }
 

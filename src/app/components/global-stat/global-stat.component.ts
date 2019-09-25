@@ -77,7 +77,6 @@ export class GlobalStatComponent implements OnInit {
     this.graphData = [];
 
     this.cours.forEach(v => {
-      console.log(v.Lundi.length);
       for (const item in enumSemaine) {
         if (v[item].length !== 0) {
           while (v[item].length > i) {

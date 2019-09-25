@@ -1,9 +1,10 @@
 <div *ngIf="mobile === false" style="margin: 30px">
   <mat-card class="flex center">
-    <mat-list *ngFor="let jour of semaine" class="list">
-      <h2 class="dayTitle">{{jour.jours}}</h2>
+    <button mat-button (click)="getPrevWeek()">Prev</button>
+    <mat-list *ngFor="let jour of semaine.jours" class="list">
+      <h2 class="dayTitle">{{jour.jour}}</h2>
       <div class="flexColumn">
-        <div *ngFor="let cour of jour" class="listElement">
+        <div class="listElement" *ngFor="let cour of jour">
           <mat-list-item class="listTitle">
             <h3>{{cour.nom}}</h3>
           </mat-list-item>
@@ -19,13 +20,18 @@
         </div>
       </div>
     </mat-list>
+    <button mat-button (click)="getNextWeek()">Next</button>
   </mat-card>
 </div>
 
 <div *ngIf="mobile === true" style="margin: 30px 0px 30px 0px">
   <mat-card class="flex center mobileCard">
     <mat-list class="list">
-      <h2 class="dayTitle">Aujourd'hui</h2>
+      <div class="flex">
+        <button mat-button (click)="getPrevDay()" style="margin-right: auto">Prev</button>
+        <h2 class="dayTitle">{{currentJour.jour}}</h2>
+        <button mat-button (click)="getNextDay()" style="margin-left: auto">Next</button>
+      </div>
       <div class="flexColumn">
         <div *ngFor="let cour of currentJour" class="listElement">
           <mat-list-item class="listTitle">

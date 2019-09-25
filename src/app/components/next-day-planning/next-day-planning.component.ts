@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CoursService } from 'src/app/services/cours.service';
-import { Semaine, Cour } from 'src/app/cours';
+import { Semaine, Cour, Journee } from 'src/app/cours';
 
 @Component({
   selector: 'app-next-day-planning',
@@ -9,11 +9,13 @@ import { Semaine, Cour } from 'src/app/cours';
 })
 export class NextDayPlanningComponent implements OnInit {
   re = /\//gi;
+  incrementDay = 0;
   mobile = false;
   todayDate = new Date();
-  semaine: Array<Semaine> = [];
-  cours = new Map<string, Semaine>();
-  currentJour: Array<Cour>;
+  date = new Date();
+  semaine = new Semaine([]);
+  jours = new Map<string, Journee>();
+  currentJour: Journee;
   weekday = new Array(7);
 
   constructor(private coursService: CoursService) {}
@@ -28,13 +30,13 @@ export class NextDayPlanningComponent implements OnInit {
   }
 
   setWeekDay() {
-    this.weekday[0] = 'Lundi';
-    this.weekday[1] = 'Mardi';
-    this.weekday[2] = 'Mercredi';
-    this.weekday[3] = 'Jeudi';
-    this.weekday[4] = 'Vendredi';
-    this.weekday[5] = 'Samedi';
-    this.weekday[6] = 'Dimanche';
+    this.weekday[1] = 'Lundi';
+    this.weekday[2] = 'Mardi';
+    this.weekday[3] = 'Mercredi';
+    this.weekday[4] = 'Jeudi';
+    this.weekday[5] = 'Vendredi';
+    this.weekday[6] = 'Samedi';
+    this.weekday[7] = 'Dimanche';
   }
 
   getMonday(d) {
@@ -44,19 +46,75 @@ export class NextDayPlanningComponent implements OnInit {
     return new Date(d.setDate(diff)).toLocaleDateString().replace(this.re, '-');
   }
 
+  getNextWeek() {
+    this.date.setDate(this.date.getDate() + 7);
+    this.jours.clear();
+    this.semaine.jours = [];
+    this.coursService.getWeekByDate(this.getMonday(this.date)).subscribe(cours => {
+      Object.keys(cours).forEach(key => {
+        this.jours.set(key.toString(), cours[key]);
+      });
+      this.jours.forEach((v, k) => {
+        v.jour = k;
+        this.semaine.jours.push(v);
+      });
+    });
+  }
+
+  getNextDay() {
+    this.currentJour = this.semaine.jours[this.todayDate.getDay() + this.incrementDay];
+    console.log(this.currentJour);
+
+    if (this.todayDate.getDay() + this.incrementDay === 7) {
+      this.date.setDate(this.date.getDate() + 7);
+      this.jours.clear();
+      this.semaine.jours = [];
+      this.coursService.getWeekByDate(this.getMonday(this.date)).subscribe(cours => {
+        Object.keys(cours).forEach(key => {
+          this.jours.set(key.toString(), cours[key]);
+        });
+        this.jours.forEach((v, k) => {
+          v.jour = k;
+          this.semaine.jours.push(v);
+        });
+      });
+      this.incrementDay = 0;
+    }
+    this.incrementDay++;
+  }
+
+  getPrevWeek() {
+    this.date.setDate(this.date.getDate() - 7);
+    this.jours.clear();
+    this.semaine.jours = [];
+    this.coursService.getWeekByDate(this.getMonday(this.date)).subscribe(cours => {
+      Object.keys(cours).forEach(key => {
+        this.jours.set(key.toString(), cours[key]);
+      });
+      this.jours.forEach((v, k) => {
+        v.jour = k;
+        this.semaine.jours.push(v);
+      });
+    });
+  }
+
+  getPrevDay() {
+    this.currentJour = this.semaine.jours[this.todayDate.getDay() + this.incrementDay];
+    this.incrementDay--;
+  }
+
   loadData() {
     this.coursService.getWeekByDate(this.getMonday(this.todayDate)).subscribe(cours => {
       Object.keys(cours).forEach(key => {
-        this.cours.set(key.toString(), cours[key]);
+        this.jours.set(key.toString(), cours[key]);
 
         if (this.weekday[this.todayDate.getDay()] === key) {
           this.currentJour = cours[key];
-          console.log(this.currentJour[0].groupe);
         }
       });
-      this.cours.forEach((v, k) => {
-        v.jours = k;
-        this.semaine.push(v);
+      this.jours.forEach((v, k) => {
+        v.jour = k;
+        this.semaine.jours.push(v);
       });
     });
   }

@@ -13,6 +13,7 @@ import { SelectModeComponent } from './components/select-mode/select-mode.compon
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatListModule } from '@angular/material/list';
 import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
 
 @NgModule({
   declarations: [AppComponent, GlobalStatComponent, NextDayPlanningComponent, SelectModeComponent],
@@ -25,7 +26,8 @@ import { MatIconModule } from '@angular/material/icon';
     MatCardModule,
     MatTabsModule,
     MatListModule,
-    MatIconModule
+    MatIconModule,
+    MatButtonModule
   ],
   providers: [],
   bootstrap: [AppComponent]
