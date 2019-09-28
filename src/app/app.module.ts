@@ -15,9 +15,17 @@ import { MatListModule } from '@angular/material/list';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { TimeProfComponent } from './components/time-prof/time-prof.component';
+import { GcalendarComponent } from './components/gcalendar/gcalendar.component';
 
 @NgModule({
-  declarations: [AppComponent, GlobalStatComponent, NextDayPlanningComponent, SelectModeComponent, TimeProfComponent],
+  declarations: [
+    AppComponent,
+    GlobalStatComponent,
+    NextDayPlanningComponent,
+    SelectModeComponent,
+    TimeProfComponent,
+    GcalendarComponent
+  ],
   imports: [
     BrowserModule,
     HttpClientModule,

@@ -13,13 +13,18 @@
               <mat-list-item class="listTitle">
                 <h3>{{cour.nom}}</h3>
               </mat-list-item>
-              <div>
-                <mat-list-item class="primaryText">
-                  <h4>{{cour.prof}}</h4>
-                </mat-list-item>
-                <div class="flex">
-                  <mat-list-item class="primaryText"> {{cour.salle}} </mat-list-item>
-                  <mat-list-item class="primaryText"> {{cour.horaires}} </mat-list-item>
+              <div class="flex">
+                <div>
+                  <mat-list-item class="primaryText">
+                    <h4>{{cour.prof}}</h4>
+                  </mat-list-item>
+                  <div class="flex">
+                    <mat-list-item class="primaryText"> {{cour.salle}} </mat-list-item>
+                  </div>
+                </div>
+                <div>
+                  <p class="primaryText"> {{cour.horaires | slice:0:5}} </p>
+                  <p class="primaryText"> {{cour.horaires | slice:7:13}} </p>
                 </div>
               </div>
             </div>
