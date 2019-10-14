@@ -31,11 +31,6 @@ export class SelectModeComponent implements OnInit {
         label: 'Répartition prof',
         link: './timeProfGraph',
         index: 2
-      },
-      {
-        label: 'Calendrier google',
-        link: './googleCalendar',
-        index: 3
       }
     ];
   }

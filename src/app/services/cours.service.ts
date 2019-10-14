@@ -18,11 +18,11 @@ export class CoursService {
   constructor(private readonly http: HttpClient) {}
 
   getAllWeek(): Observable<any> {
-    return this.http.get(`${API_URL}/cour`, httpOptions);
+    return this.http.get(`${API_URL}/cours`, httpOptions);
   }
 
   getWeekByDate(date: string): Observable<any> {
-    const urlApi = `${API_URL}/cour/${date}`;
+    const urlApi = `${API_URL}/cours/${date}`;
     return this.http.get(`${urlApi}`, httpOptions);
   }
 }

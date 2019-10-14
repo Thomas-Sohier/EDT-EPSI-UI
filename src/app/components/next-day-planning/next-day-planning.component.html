@@ -5,37 +5,39 @@
     </mat-card-header>
     <mat-card-content class="flex center">
       <button mat-button (click)="getPrevWeek()">Prev</button>
-      <mat-list *ngFor="let jour of semaine.jours" class="list">
-        <h2 class="dayTitle">{{jour.jour}}</h2>
-        <div class="flexColumn">
-          <div *ngIf="jour.length !== 0; else elseBlock">
-            <div class="listElement" *ngFor="let cour of jour">
-              <mat-list-item class="listTitle">
-                <h3>{{cour.nom}}</h3>
-              </mat-list-item>
-              <div class="flex">
-                <div>
-                  <mat-list-item class="primaryText">
-                    <h4>{{cour.prof}}</h4>
-                  </mat-list-item>
-                  <div class="flex">
-                    <mat-list-item class="primaryText"> {{cour.salle}} </mat-list-item>
+      <div style="overflow: auto" class="flex center">
+        <mat-list *ngFor="let jour of semaine.jours" class="list">
+          <h2 class="dayTitle">{{jour.jour}}</h2>
+          <div class="flexColumn">
+            <div *ngIf="jour.length !== 0; else elseBlock">
+              <div class="listElement" *ngFor="let cour of jour">
+                <mat-list-item class="listTitle">
+                  <h3>{{cour.nom}}</h3>
+                </mat-list-item>
+                <div class="flex">
+                  <div>
+                    <mat-list-item class="primaryText">
+                      <h4>{{cour.prof}}</h4>
+                    </mat-list-item>
+                    <div class="flex">
+                      <mat-list-item class="primaryText"> {{cour.salle}} </mat-list-item>
+                    </div>
                   </div>
-                </div>
-                <div>
-                  <p class="primaryText"> {{cour.horaires | slice:0:5}} </p>
-                  <p class="primaryText"> {{cour.horaires | slice:7:13}} </p>
+                  <div>
+                    <p class="primaryText"> {{cour.horaires | slice:0:5}} </p>
+                    <p class="primaryText"> {{cour.horaires | slice:7:13}} </p>
+                  </div>
                 </div>
               </div>
             </div>
+            <ng-template #elseBlock>
+              <p class="empty">
+                VIDE
+              </p>
+            </ng-template>
           </div>
-          <ng-template #elseBlock>
-            <p class="empty">
-              VIDE
-            </p>
-          </ng-template>
-        </div>
-      </mat-list>
+        </mat-list>
+      </div>
       <button mat-button (click)="getNextWeek()">Next</button>
     </mat-card-content>
   </mat-card>
