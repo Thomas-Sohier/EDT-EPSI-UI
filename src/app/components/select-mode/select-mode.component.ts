@@ -19,17 +19,17 @@ export class SelectModeComponent implements OnInit {
     this.navLinks = [
       {
         label: 'Planning',
-        link: './nextDayPlanning',
+        link: '/nextDayPlanning',
         index: 0
       },
       {
         label: 'Tranches horaires',
-        link: './globalStat',
+        link: '/globalStat',
         index: 1
       },
       {
         label: 'Répartition prof',
-        link: './timeProfGraph',
+        link: '/timeProfGraph',
         index: 2
       }
     ];
