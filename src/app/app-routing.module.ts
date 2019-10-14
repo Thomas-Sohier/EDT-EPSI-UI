@@ -5,7 +5,7 @@ import { NextDayPlanningComponent } from './components/next-day-planning/next-da
 import { TimeProfComponent } from './components/time-prof/time-prof.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: '/', pathMatch: 'full' },
+  // { path: '', redirectTo: '/', pathMatch: 'full' },
   { path: 'globalStat', component: GlobalStatComponent },
   { path: 'nextDayPlanning', component: NextDayPlanningComponent },
   { path: 'timeProfGraph', component: TimeProfComponent },
