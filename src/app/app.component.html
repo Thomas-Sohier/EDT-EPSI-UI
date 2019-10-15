@@ -1,5 +1,14 @@
 <div>
-  <mat-toolbar color="primary" class="toolbar">Emploi du temps EPSI</mat-toolbar>
+  <mat-toolbar color="primary" class="toolbar">
+    <span>
+      Emploi du temps EPSI
+    </span>
+    <div *ngIf="user" class="user">
+      <p class="userName">{{user.firstName}} {{user.lastName}}</p>
+      <mat-icon svgIcon="account" (click)="logout()" class="icon" aria-hidden="false">
+      </mat-icon>
+    </div>
+  </mat-toolbar>
 </div>
 
 <div>
